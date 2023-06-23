@@ -15,7 +15,7 @@
 	<section class="habits-section">
 		<button on:click={() => (showNewHabitModal = true)}>+</button>
 		{#each $habits as habit (habit.id)}
-			<Habit {...habit} bind:category={habit.category} />
+			<Habit {...habit} />
 		{/each}
 	</section>
 </main>
