@@ -4,6 +4,8 @@
 	import type { Category, Color } from '../types/types';
 	import { colors, defaultColor } from '../util/colors';
 	import { getToday } from '../util/time';
+	import Checkbox from './Checkbox.svelte';
+	import DropdownMenu from './DropdownMenu.svelte';
 	import DeleteHabitModal from './Modals/DeleteHabitModal.svelte';
 	import EditHabitModal from './Modals/EditHabitModal.svelte';
 	import { habits } from './stores';
@@ -60,7 +62,7 @@
 		showDeleteModal = true;
 	};
 
-	const onIncrementChecked = (e: Event) => {
+	let onIncrementChecked = (e: Event) => {
 		const checked = (e.target as HTMLInputElement).checked;
 		updateOneHabit(id, {
 			streak: checked ? streak + 1 : streak - 1,
@@ -68,51 +70,36 @@
 		});
 		habits.set(getHabits());
 	};
+
+	let options = [
+		{ label: 'Edit', action: onEditClicked },
+		{ label: 'Delete', action: onDeleteClicked }
+	];
 </script>
 
 <div class="habit container" style="color: {color?.primary}">
-	<div>
-		<h3 class="label">
-			{label.slice(0, 1).toUpperCase() + label.slice(1)}
-			{#if category}
-				<span class="category"> - {category.name}</span>
-			{/if}
-		</h3>
+	<div class="inner">
+		<div class="top-section">
+			<h3 class="label">
+				{label.slice(0, 1).toUpperCase() + label.slice(1)}
+				{#if category}
+					<span class="category"> - {category.name}</span>
+				{/if}
+			</h3>
+			<DropdownMenu bind:options bind:isMenuOpen />
+		</div>
+		<div class="bottom-section">
+			<p>{formatInterval(interval)}</p>
+			<div class="streak-increment-checkbox">
+				<Checkbox bind:value={streakIncremented} bind:onChange={onIncrementChecked} />
+			</div>
+		</div>
+		<!-- <p>{completionPercentage > 100 ? 100 : completionPercentage}%</p> -->
 	</div>
-	<button
-		on:click={(e) => {
-			updateOneHabit(id, { starred: !starred });
-			habits.set(getHabits());
-		}}>{starred ? 'star' : 'no star'}</button
-	>
-	<button
-		id="options-menu-button"
-		aria-haspopup="menu"
-		aria-controls="options-menu"
-		on:click={(e) => {
-			isMenuOpen = !isMenuOpen;
-		}}>{isMenuOpen ? 'open' : 'closed'}</button
-	>
-	{#if isMenuOpen}
-		<ul id="options-menu" role="menu" aria-labelledby="options-menu-button">
-			<li role="menuitem" on:keydown={onEditClicked} on:click={onEditClicked}>Edit</li>
-			<li role="menuitem" on:keydown={onDeleteClicked} on:click={onDeleteClicked}>Delete</li>
-		</ul>
-	{/if}
-	<label for="streak-increment-button">increment</label>
-	<input
-		type="checkbox"
-		name="streak-increment-button"
-		id="streak-increment-button"
-		on:change={onIncrementChecked}
-		bind:checked={streakIncremented}
-	/>
-	<p>{formatInterval(interval)}</p>
-	<p>{completionPercentage > 100 ? 100 : completionPercentage}%</p>
 	<div class="progress-bar">
 		<div
 			class="progress"
-			style="width: {completionPercentage}%; background-color: {color?.primary}"
+			style="width: {completionPercentage}%; background-color: {color?.primary};;"
 		/>
 	</div>
 </div>
@@ -120,10 +107,42 @@
 <DeleteHabitModal {id} {label} bind:showModal={showDeleteModal} />
 
 <style>
+	h3,
+	p {
+		margin: 0;
+	}
+
+	.material-symbols-sharp {
+		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
+	}
+
+	.material-symbols-rounded {
+		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
+		font-size: 3rem;
+		color: #adf1d6;
+	}
+
 	.container {
-		border: 1px solid lightgray;
-		border-radius: 10px;
-		color: #009e60;
+		margin-bottom: 0.5rem;
+		border: 1px solid #00b579;
+		border-radius: 3px;
+		color: #00b579;
+		background-color: #ebfff7;
+	}
+
+	.inner {
+		padding: 0.5rem 0.7rem 0.3rem 0.7rem;
+	}
+
+	.top-section {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.bottom-section {
+		display: flex;
+		justify-content: space-between;
+		padding-right: 3rem;
 	}
 
 	.category {
@@ -131,14 +150,18 @@
 		font-size: 1rem;
 	}
 
+	.streak-increment-checkbox {
+		margin-bottom: 1rem;
+	}
+
 	.progress-bar {
 		width: 100%;
-		height: 10px;
+		height: 0.4rem;
 	}
 
 	.progress {
 		width: 0%;
 		height: 100%;
-		background-color: #009e60;
+		background-color: #00b579;
 	}
 </style>

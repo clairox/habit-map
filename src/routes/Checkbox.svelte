@@ -20,12 +20,16 @@
 	};
 </script>
 
-<div on:click={onClicked} on:keydown={onClicked}>
+<button on:click={onClicked}>
 	<input type="checkbox" {value} bind:this={checkboxElement} on:change={onCheckboxChange} />
-	<span class="checkbox material-symbols-rounded {value ? 'checked' : ''}">check_circle</span>
-</div>
+	<span class="checkbox material-symbols-rounded {value ? 'checked' : ''}">check_box</span>
+</button>
 
 <style>
+	button {
+		all: unset;
+	}
+
 	input[type='checkbox'] {
 		display: none;
 	}
@@ -41,6 +45,6 @@
 	}
 
 	.checked {
-		color: #009e60;
+		color: #00b579;
 	}
 </style>

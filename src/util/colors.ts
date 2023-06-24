@@ -13,7 +13,7 @@ export const colors = [
 	},
 	{
 		name: 'Green',
-		primary: '#009e60'
+		primary: '#00b579'
 	},
 	{
 		name: 'Blue',
@@ -31,5 +31,5 @@ export const colors = [
 
 export const defaultColor = {
 	name: 'Green',
-	primary: '#009e60'
+	primary: '#00b579'
 };
