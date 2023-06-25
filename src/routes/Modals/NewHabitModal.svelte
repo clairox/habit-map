@@ -42,25 +42,34 @@
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
-	<h2 slot="header">New Habit</h2>
-	<form slot="content" class="form" on:submit|preventDefault={onSubmit}>
-		<div>
-			<label for="label-input">Label</label>
-			<input type="text" name="label-input" placeholder="Label" bind:value={label} />
+	<h2 class="title" slot="header">New Habit</h2>
+	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
+		<div class="form-group">
+			<label class="input-label" for="title-input">Title</label>
+			<input class="input" type="text" name="title-input" bind:value={label} />
 		</div>
 
-		<div>
-			<label for="interval-input">Interval</label>
-			<input type="text" name="interval-input" placeholder="Interval" bind:value={interval} />
-		</div>
+		<div class="form-row">
+			<div class="form-group">
+				<label class="input-label" for="interval-input">Interval</label>
+				<input
+					class="input"
+					type="text"
+					name="interval-input"
+					tabindex="-1"
+					bind:value={interval}
+				/>
+			</div>
 
-		<div>
-			<label for="goal-input">Goal</label>
-			<input type="text" name="goal-input" placeholder="Goal" bind:value={goal} />
+			<div class="form-group">
+				<label class="input-label" for="goal-input">Goal</label>
+				<input class="input" type="text" name="goal-input" bind:value={goal} />
+			</div>
 		</div>
-		<div>
-			<label for="category-input">Category</label>
+		<div class="form-group">
+			<label class="input-label" for="category-input">Category</label>
 			<select
+				class="input"
 				name="category-input"
 				on:change={(e) => onCategorySelected(e)}
 				bind:value={categoryId}
@@ -72,17 +81,13 @@
 				<option value="createNewCategory">+ New category</option>
 			</select>
 		</div>
-		<button type="submit">Add</button>
-		<button type="button" on:click={() => dialog.close()}>Cancel</button>
+		<div class="form-actions">
+			<button class="button" type="submit">Add</button>
+			<button class="button" type="button" on:click={() => dialog.close()}>Cancel</button>
+		</div>
 	</form>
 </Modal>
 <NewCategoryModal bind:showModal={showCategoryModal} bind:categoryId />
 
 <style>
-	.form {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		padding-bottom: 10px;
-	}
 </style>

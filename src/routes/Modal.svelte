@@ -15,15 +15,39 @@
 	}}
 	on:mousedown|self={() => dialog.close()}
 >
-	<div on:mousedown|stopPropagation>
-		<slot name="header" />
-		<slot name="content" />
+	<div class="inner" on:mousedown|stopPropagation>
+		<div class="header">
+			<slot name="header" />
+		</div>
+		<div class="content">
+			<slot name="content" />
+		</div>
 	</div>
 </dialog>
 
 <style>
 	dialog {
 		padding: 0;
+		border: 5px solid var(--default-bg-light-color);
+		border-radius: 10px;
+		width: 75vw;
+		background: var(--default-bg-color);
+		color: var(--default-accent-color);
+		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.329));
+	}
+
+	.inner {
+		padding: 0;
+	}
+
+	.header {
+		padding: 0.2rem 0.7rem 0.3rem 0.7rem;
+		background: var(--default-bg-light-color);
+		font-weight: bold;
+	}
+
+	.content {
+		padding: 1rem;
 	}
 
 	dialog::backdrop {

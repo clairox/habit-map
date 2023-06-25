@@ -13,11 +13,6 @@
 		<h1>Hello, Claire</h1>
 	</section> -->
 	<section class="habits-section">
-		<button class="button add-habit-button" on:click={() => (showNewHabitModal = true)}
-			><span class="material-symbols-rounded">add</span><span class="button-text">
-				Habit</span
-			></button
-		>
 		<div class="habits-content">
 			{#each $habits as habit (habit.id)}
 				<Habit {...habit} />
@@ -25,6 +20,11 @@
 		</div>
 	</section>
 </main>
+<div class="toolbar">
+	<button class="button add-habit-button" on:click={() => (showNewHabitModal = true)}>
+		<span class="material-symbols-rounded">add</span>
+	</button>
+</div>
 <NewHabitModal bind:showModal={showNewHabitModal} />
 
 <style>
@@ -34,28 +34,101 @@
 		font-family: 'Albert Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 			'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 		font-size: 1em;
+		--default-primary-color: rgb(42, 170, 138);
+		--default-light-color: rgb(85, 207, 177);
+		--default-dark-color: rgb(43, 136, 113);
+		--default-accent-color: rgb(255, 255, 255);
+		--default-bg-color: rgb(64, 62, 71);
+		--default-bg-light-color: rgb(100, 97, 110);
+	}
+
+	:global(body) {
+		margin: 0;
+		background: var(--default-bg-color);
+		color: var(--default-accent-color);
+		box-sizing: border-box;
+	}
+
+	:global(.title) {
+		margin: 0;
+	}
+
+	:global(.form) {
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+	}
+
+	:global(.form-group) {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 0.5rem;
+	}
+
+	:global(.input-label) {
+		margin-bottom: 0.3rem;
+		font-family: 'Lato';
+		font-size: 0.9rem;
+	}
+
+	:global(.input),
+	:global(.button) {
+		padding: 0.1rem 0.6rem;
+		height: 1.6rem;
+		border: none;
+		border-radius: 3px;
+		box-sizing: border-box;
+	}
+
+	:global(.form-row) {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+	}
+
+	:global(.form-row > .form-group) {
+		width: 0;
+		flex-grow: 1;
+	}
+
+	:global(.form-actions) {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		margin-top: 1rem;
+	}
+
+	main {
+		margin: 2rem 0.5rem 4rem 0.5rem;
+		padding-bottom: 1rem;
 	}
 
 	.material-symbols-rounded {
-		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
-		font-size: 1.3rem;
+		font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 600, 'opsz' 40;
+		font-size: 2rem;
 	}
 
 	.button {
+		position: fixed;
+		bottom: 0;
 		display: flex;
+		justify-content: center;
 		align-items: center;
-		padding: 0.5rem 0.7rem 0.5rem 0.4rem;
+		height: 4rem;
+		width: 100vw;
 		border: none;
-		border-radius: 3px;
-		background: #00b579;
-		color: white;
+		background: var(--default-primary-color);
+		color: var(--default-accent-color);
+		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.329));
 	}
 
-	.button-text {
-		font-size: 1.2rem;
+	.button:hover {
+		background: var(--default-dark-color);
 	}
 
 	.habits-content {
-		margin-top: 0.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 </style>

@@ -40,11 +40,11 @@
 
 	.material-symbols-rounded {
 		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
-		font-size: 3rem;
-		color: #adf1d6;
+		font-size: 2.5rem;
+		color: var(--default-light-color);
 	}
 
 	.checked {
-		color: #00b579;
+		color: var(--default-accent-color);
 	}
 </style>

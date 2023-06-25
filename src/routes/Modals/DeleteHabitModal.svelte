@@ -19,11 +19,14 @@
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
-	<form slot="content" class="form" on:submit|preventDefault={onSubmit}>
+	<h2 class="title" slot="header">Delete "{label}"</h2>
+	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
 		<div>
 			Are you sure you want to delete {label}?
 		</div>
-		<button type="submit">Confirm</button>
-		<button type="button" on:click={() => dialog.close()}>Cancel</button>
+		<div class="form-actions">
+			<button class="button" type="submit">Confirm</button>
+			<button class="button" type="button" on:click={() => dialog.close()}>Cancel</button>
+		</div>
 	</form>
 </Modal>

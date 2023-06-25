@@ -40,7 +40,7 @@
 		padding: 0;
 		border: none;
 		background: none;
-		color: #00b579;
+		color: var(--default-accent-color);
 	}
 
 	.options-menu {
@@ -48,7 +48,6 @@
 		top: 0.6rem;
 		left: -3.2rem;
 		padding: 0;
-		border: 1px solid #757575;
 		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
 			'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 		background-color: white;
@@ -61,7 +60,7 @@
 	}
 
 	.menu-item:not(:last-child) {
-		border-bottom: 1px solid #757575;
+		border-bottom: 1px solid #f1f1f1;
 	}
 
 	.menu-item:hover {

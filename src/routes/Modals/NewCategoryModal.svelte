@@ -31,15 +31,15 @@
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
-	<h2 slot="header">New Category</h2>
-	<form slot="content" class="form" on:submit|preventDefault={onSubmit}>
-		<div>
-			<label for="label-input">Name</label>
-			<input type="text" name="label-input" placeholder="Name" bind:value={name} />
+	<h2 class="title" slot="header">New Category</h2>
+	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
+		<div class="form-group">
+			<label class="input-label" for="label-input">Name</label>
+			<input class="input" type="text" name="label-input" placeholder="Name" bind:value={name} />
 		</div>
-		<div>
-			<label for="label-input">Color</label>
-			<select name="category-input" bind:value={color}>
+		<div class="form-group">
+			<label class="input-label" for="label-input">Color</label>
+			<select class="input" name="category-input" bind:value={color}>
 				<option value="">Default</option>
 				{#each colors as c (c.name)}
 					<option value={c.name}>{c.name}</option>
@@ -47,7 +47,9 @@
 				<option value="createNewCategory">+ New category</option>
 			</select>
 		</div>
-		<button type="submit">Add</button>
-		<button type="button" on:click={() => dialog.close()}>Cancel</button>
+		<div class="form-actions">
+			<button class="button" type="submit">Add</button>
+			<button class="button" on:click={() => dialog.close()}>Cancel</button>
+		</div>
 	</form>
 </Modal>

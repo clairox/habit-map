@@ -16,12 +16,14 @@
 	.material-symbols-rounded {
 		font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 48;
 		font-size: 1.8rem;
+		color: var(--default-accent-color);
 	}
 
 	.nav {
 		display: flex;
 		justify-content: space-between;
-		margin-bottom: 2rem;
+		padding: 0.4rem 0.7rem;
+		background: var(--default-primary-color);
 	}
 
 	#nav-left {
@@ -33,7 +35,7 @@
 	}
 
 	.brand {
-		font-size: 2rem;
+		font-size: 1.7rem;
 		cursor: pointer;
 	}
 

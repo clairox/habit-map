@@ -78,31 +78,31 @@
 </script>
 
 <div class="habit container" style="color: {color?.primary}">
-	<div class="inner">
-		<div class="top-section">
-			<h3 class="label">
+	<div class="top-section">
+		<div class="header">
+			<h3 class="title">
 				{label.slice(0, 1).toUpperCase() + label.slice(1)}
-				{#if category}
-					<span class="category"> - {category.name}</span>
-				{/if}
+				<span class="completetion-percentage"> - {completionPercentage}%</span>
 			</h3>
-			<DropdownMenu bind:options bind:isMenuOpen />
 		</div>
-		<div class="bottom-section">
+		<DropdownMenu bind:options bind:isMenuOpen />
+	</div>
+	<div class="bottom-section">
+		<div class="info">
 			<p>{formatInterval(interval)}</p>
 			<div class="streak-increment-checkbox">
 				<Checkbox bind:value={streakIncremented} bind:onChange={onIncrementChecked} />
 			</div>
 		</div>
-		<!-- <p>{completionPercentage > 100 ? 100 : completionPercentage}%</p> -->
-	</div>
-	<div class="progress-bar">
-		<div
-			class="progress"
-			style="width: {completionPercentage}%; background-color: {color?.primary};;"
-		/>
+		<div class="progress-bar">
+			<div
+				class="progress"
+				style="width: {completionPercentage}%; background-color: {color?.primary};;"
+			/>
+		</div>
 	</div>
 </div>
+
 <EditHabitModal {...editHabitModalProps} {editHabit} bind:showModal={showEditModal} />
 <DeleteHabitModal {id} {label} bind:showModal={showDeleteModal} />
 
@@ -116,33 +116,50 @@
 		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
 	}
 
-	.material-symbols-rounded {
-		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
-		font-size: 3rem;
-		color: #adf1d6;
-	}
-
 	.container {
-		margin-bottom: 0.5rem;
-		border: 1px solid #00b579;
-		border-radius: 3px;
-		color: #00b579;
-		background-color: #ebfff7;
-	}
-
-	.inner {
-		padding: 0.5rem 0.7rem 0.3rem 0.7rem;
+		border: 5px solid var(--default-light-color);
+		border-radius: 10px;
+		color: #fff;
+		background-color: var(--default-light-color);
 	}
 
 	.top-section {
 		display: flex;
 		justify-content: space-between;
+		padding: 0.2rem 0.7rem 0 0.7rem;
 	}
 
 	.bottom-section {
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
-		padding-right: 3rem;
+		border-bottom-left-radius: 6px;
+		border-bottom-right-radius: 6px;
+		background: var(--default-primary-color);
+		font-family: 'Lato';
+		overflow: hidden;
+	}
+
+	.header {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.title {
+		padding-right: 0.3rem;
+		font-weight: bold;
+	}
+
+	.completetion-percentage {
+		line-height: 1.5rem;
+		font-size: 0.9rem;
+		font-weight: normal;
+	}
+
+	.info {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.5rem 0.7rem 0.3rem 0.7rem;
 	}
 
 	.category {
@@ -151,17 +168,16 @@
 	}
 
 	.streak-increment-checkbox {
-		margin-bottom: 1rem;
 	}
 
 	.progress-bar {
 		width: 100%;
-		height: 0.4rem;
+		height: 0.5rem;
 	}
 
 	.progress {
 		width: 0%;
 		height: 100%;
-		background-color: #00b579;
+		background-color: var(--default-accent-color);
 	}
 </style>
