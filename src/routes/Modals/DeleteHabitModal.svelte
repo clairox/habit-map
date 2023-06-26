@@ -26,7 +26,9 @@
 		</div>
 		<div class="form-actions">
 			<button class="button" type="submit">Confirm</button>
-			<button class="button" type="button" on:click={() => dialog.close()}>Cancel</button>
+			<button class="button" type="button" on:click|preventDefault={() => dialog.close()}
+				>Cancel</button
+			>
 		</div>
 	</form>
 </Modal>

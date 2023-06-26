@@ -41,6 +41,7 @@
 		title = currentTitle;
 		goal = currentGoal;
 		interval = currentInterval;
+		color = currentColor;
 	};
 
 	const onSubmit = () => {
@@ -91,7 +92,7 @@
 		</div>
 		<div class="form-actions">
 			<button class="button" type="submit">Confirm</button>
-			<button class="button" on:click={() => dialog.close()}>Cancel</button>
+			<button class="button" on:click|preventDefault={() => dialog.close()}>Cancel</button>
 		</div>
 	</form>
 </Modal>
