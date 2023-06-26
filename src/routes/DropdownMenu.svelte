@@ -14,7 +14,7 @@
 			isMenuOpen = !isMenuOpen;
 		}}
 	>
-		more_vert
+		more_horiz
 	</button>
 	{#if isMenuOpen}
 		<ul class="options-menu" id="options-menu" role="menu" aria-labelledby="options-menu-button">
