@@ -11,3 +11,10 @@ export const nDaysAgo = (n: number): Date => {
 
 	return nDaysAgo;
 };
+
+export const nDaysBefore = (date: Date, n: number): Date => {
+	const nDaysBefore = new Date(date);
+	nDaysBefore.setDate(nDaysBefore.getDate() - n);
+
+	return nDaysBefore;
+};

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getHabits, updateOneHabit } from '$lib/Habit';
-	import { getToday } from '../util/time';
+	import { getToday, nDaysBefore } from '../util/time';
 	import Checkbox from './Checkbox.svelte';
 	import DropdownMenu from './DropdownMenu.svelte';
 	import DeleteHabitModal from './Modals/DeleteHabitModal.svelte';
@@ -19,7 +19,11 @@
 	$: completionPercentage =
 		Math.round((streak / goal) * 100) < 100 ? Math.round((streak / goal) * 100) : 100;
 
-	let streakIncremented = tempLastStreakDate.toString() === getToday().toString();
+	let canProgress =
+		getToday().toString() === tempLastStreakDate.toString() ||
+		getToday() >= nDaysBefore(tempLastStreakDate, -interval);
+
+	let wasProgressUpdatedToday = getToday() < nDaysBefore(tempLastStreakDate, -interval);
 
 	let isMenuOpen = false;
 	let showEditModal = false;
@@ -52,7 +56,7 @@
 		showDeleteModal = true;
 	};
 
-	let onIncrementChecked = (e: Event) => {
+	let onProgressUpdated = (e: Event) => {
 		const checked = (e.target as HTMLInputElement).checked;
 		updateOneHabit(id, {
 			streak: checked ? streak + 1 : streak - 1,
@@ -80,8 +84,12 @@
 	<div class="bottom-section">
 		<div class="info">
 			<p>{formatInterval(interval)}</p>
-			<div class="streak-increment-checkbox">
-				<Checkbox bind:value={streakIncremented} bind:onChange={onIncrementChecked} />
+			<div class="progress-update-checkbox">
+				{#if canProgress}
+					<Checkbox bind:value={wasProgressUpdatedToday} bind:onChange={onProgressUpdated} />
+				{:else}
+					<span>Can progress in x days</span>
+				{/if}
 			</div>
 		</div>
 		<div class="progress-bar">

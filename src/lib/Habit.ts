@@ -1,6 +1,6 @@
 import type { EditableHabitProperties, GetHabitsOptions, Habit, SortFunc } from '../types/types';
 import { v4 as uuidv4 } from 'uuid';
-import { nDaysAgo } from '../util/time';
+import { getToday, nDaysAgo, nDaysBefore } from '../util/time';
 
 export function createHabit(label: string, interval: number, goal: number): Habit | null {
 	const now = new Date();
@@ -108,14 +108,14 @@ function sort(habits: Habit[], sortBy?: SortFunc): Habit[] {
 
 function refresh(habits: Habit[]): Habit[] {
 	function getUpdatedStreak(habit: Habit): number {
-		if (habit.tempLastStreakDate <= nDaysAgo(2)) {
+		if (habit.tempLastStreakDate <= nDaysAgo(1 + habit.interval)) {
 			return 0;
 		}
 
 		return habit.streak;
 	}
 
-	return habits.map((habit) => {
+	function serializeDates(habit: Habit): Habit {
 		const updatedHabit = habit;
 		updatedHabit.lastStreakDate = new Date(habit.lastStreakDate);
 		updatedHabit.tempLastStreakDate = new Date(habit.tempLastStreakDate);
@@ -123,9 +123,22 @@ function refresh(habits: Habit[]): Habit[] {
 		updatedHabit.updatedAt = new Date(habit.updatedAt);
 		updatedHabit.streak = getUpdatedStreak(habit);
 
-		if (updatedHabit.tempLastStreakDate <= nDaysAgo(1))
+		return updatedHabit;
+	}
+
+	const updatedHabits = habits.map((habit) => {
+		const updatedHabit = serializeDates(habit);
+		const interval = habit.interval;
+
+		if (
+			getToday() >= nDaysBefore(updatedHabit.tempLastStreakDate, -interval) &&
+			updatedHabit.tempLastStreakDate <= nDaysAgo(1)
+		)
 			updatedHabit.lastStreakDate = updatedHabit.tempLastStreakDate;
 
 		return updatedHabit;
 	});
+
+	localStorage.habits = JSON.stringify([...updatedHabits]);
+	return JSON.parse(localStorage.habits || '[]').map((h: Habit) => serializeDates(h));
 }
