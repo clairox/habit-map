@@ -1,13 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import type { ThemeColor } from '../types/types';
+	import { colors } from '../util/colors';
 
 	export let onChange: (event: Event) => void;
-	export let value = false;
+	export let checked = false;
+	export let color: ThemeColor = 'Jade';
+
+	let primaryColor: string, lightColor: string;
+
+	$: primaryColor = colors.find((c) => c.name === color)!.primaryColor;
+	$: lightColor = colors.find((c) => c.name === color)!.lightColor;
 
 	let checkboxElement: HTMLInputElement;
 
 	onMount(() => {
-		checkboxElement.checked = value;
+		checkboxElement.checked = checked;
 	});
 
 	const onClicked = (e: Event) => {
@@ -15,14 +23,17 @@
 	};
 
 	const onCheckboxChange = (e: Event) => {
-		value = (e.target as HTMLInputElement).checked;
+		checked = (e.target as HTMLInputElement).checked;
 		onChange(e);
 	};
 </script>
 
 <button on:click={onClicked}>
-	<input type="checkbox" {value} bind:this={checkboxElement} on:change={onCheckboxChange} />
-	<span class="checkbox material-symbols-rounded {value ? 'checked' : ''}">check_box</span>
+	<input type="checkbox" {checked} bind:this={checkboxElement} on:change={onCheckboxChange} />
+	<span
+		class="checkbox material-symbols-rounded {checked ? 'checked' : ''}"
+		style="color: {checked ? 'var(--default-accent-color)' : lightColor}">check_box</span
+	>
 </button>
 
 <style>

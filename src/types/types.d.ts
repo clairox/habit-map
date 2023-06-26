@@ -1,8 +1,9 @@
 export interface Habit {
 	id: string;
 	title: string;
-	goal: number;
 	interval: number;
+	goal: number;
+	color: ThemeColor;
 	starred: boolean;
 	streak: number;
 	lastStreakDate: Date;
@@ -19,8 +20,9 @@ export interface GetHabitsOptions {
 
 export interface EditableHabitProperties {
 	title?: string;
-	goal?: number;
 	interval?: number;
+	goal?: number;
+	color?: ThemeColor;
 	entries?: HabitEntry[];
 	starred?: boolean;
 	streak?: number;
@@ -29,13 +31,12 @@ export interface EditableHabitProperties {
 
 export type SortFunc = 'date-asc' | 'date-desc';
 
-export interface Color {
-	name: string;
-	primary: string;
-}
-
-export interface Icon {
-	id: string;
-	name: string;
-	imageUrl: string;
-}
+export type ThemeColor =
+	| 'Coral'
+	| 'Rust'
+	| 'Mustard'
+	| 'Cactus'
+	| 'Jade'
+	| 'Ocean'
+	| 'Aubergine'
+	| 'Salmon';

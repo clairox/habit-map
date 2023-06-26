@@ -1,8 +1,19 @@
-import type { EditableHabitProperties, GetHabitsOptions, Habit, SortFunc } from '../types/types';
+import type {
+	EditableHabitProperties,
+	GetHabitsOptions,
+	Habit,
+	SortFunc,
+	ThemeColor
+} from '../types/types';
 import { v4 as uuidv4 } from 'uuid';
 import { getToday, nDaysAgo, nDaysBefore } from '../util/time';
 
-export function createHabit(title: string, interval: number, goal: number): Habit | null {
+export function createHabit(
+	title: string,
+	interval: number,
+	goal: number,
+	color: ThemeColor
+): Habit | null {
 	const now = new Date();
 
 	const newHabit: Habit = {
@@ -10,6 +21,7 @@ export function createHabit(title: string, interval: number, goal: number): Habi
 		title,
 		interval,
 		goal,
+		color,
 		starred: false,
 		streak: 0,
 		lastStreakDate: new Date(Date.now() - Date.now()),

@@ -77,6 +77,7 @@
 		height: 1.6rem;
 		border: none;
 		border-radius: 3px;
+		color: var(--default-bg-color);
 		box-sizing: border-box;
 	}
 

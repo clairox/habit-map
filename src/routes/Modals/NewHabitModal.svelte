@@ -2,6 +2,8 @@
 	import { createHabit, getHabits } from '$lib/Habit';
 	import Modal from '../Modal.svelte';
 	import { habits } from '../stores';
+	import ColorSelect from '../ColorSelect.svelte';
+	import type { ThemeColor } from '../../types/types';
 
 	export let showModal = false;
 
@@ -10,6 +12,7 @@
 	let title = '';
 	let interval = 1;
 	let goal = 1;
+	let color: ThemeColor = 'Jade';
 
 	$: interval = Math.floor(interval);
 	$: goal = Math.floor(goal);
@@ -21,11 +24,13 @@
 	};
 
 	const onSubmit = () => {
-		createHabit(title, interval, goal);
+		createHabit(title, interval, goal, color);
 		habits.set(getHabits());
 
 		dialog.close();
 	};
+
+	const selectSize: 'sm' | 'lg' = 'lg';
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
@@ -52,6 +57,10 @@
 				<label class="input-label" for="goal-input">Goal</label>
 				<input class="input" type="text" name="goal-input" bind:value={goal} />
 			</div>
+		</div>
+		<div class="form-group">
+			<label class="input-label" for="color-input">Color</label>
+			<ColorSelect size={selectSize} bind:value={color} />
 		</div>
 		<div class="form-actions">
 			<button class="button" type="submit">Add</button>

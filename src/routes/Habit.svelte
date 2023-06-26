@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { getHabits, updateOneHabit } from '$lib/Habit';
+	import type { ThemeColor } from '../types/types';
+	import { colors } from '../util/colors';
 	import { getToday, nDaysBefore } from '../util/time';
 	import Checkbox from './Checkbox.svelte';
 	import DropdownMenu from './DropdownMenu.svelte';
@@ -11,6 +13,7 @@
 		title: string = '',
 		goal: number = 0,
 		interval: number = 0,
+		color: ThemeColor = 'Jade',
 		starred: boolean = false,
 		streak: number = 0,
 		lastStreakDate: Date,
@@ -29,14 +32,15 @@
 	let showEditModal = false;
 	let showDeleteModal = false;
 
-	const editHabit = (title?: string, goal?: number, interval?: number) => {
-		updateOneHabit(id, { title, goal, interval });
+	const editHabit = (title?: string, goal?: number, interval?: number, color?: ThemeColor) => {
+		updateOneHabit(id, { title, goal, interval, color });
 	};
 
 	const editHabitModalProps = {
 		currentTitle: title,
 		currentGoal: goal,
-		currentInterval: interval
+		currentInterval: interval,
+		currentColor: color
 	};
 
 	const formatInterval = (interval: number) => {
@@ -44,6 +48,16 @@
 			return 'Daily';
 		}
 		return 'Every ' + interval + ' days';
+	};
+
+	let primaryColor: string, lightColor: string;
+
+	$: primaryColor = colors.find((c) => c.name === color)!.primaryColor;
+	$: lightColor = colors.find((c) => c.name === color)!.lightColor;
+
+	const onStarredClicked = () => {
+		isMenuOpen = false;
+		updateOneHabit(id, { starred: !starred });
 	};
 
 	const onEditClicked = () => {
@@ -66,12 +80,13 @@
 	};
 
 	let options = [
+		{ label: 'Starred', action: onStarredClicked },
 		{ label: 'Edit', action: onEditClicked },
 		{ label: 'Delete', action: onDeleteClicked }
 	];
 </script>
 
-<div class="habit container">
+<div class="habit container" style="border: 5px solid {lightColor}; background: {lightColor}">
 	<div class="top-section">
 		<div class="header">
 			<h3 class="title">
@@ -81,12 +96,16 @@
 		</div>
 		<DropdownMenu bind:options bind:isMenuOpen />
 	</div>
-	<div class="bottom-section">
+	<div class="bottom-section" style="background: {primaryColor}">
 		<div class="info">
 			<p>{formatInterval(interval)}</p>
 			<div class="progress-update-checkbox">
 				{#if canProgress}
-					<Checkbox bind:value={wasProgressUpdatedToday} bind:onChange={onProgressUpdated} />
+					<Checkbox
+						bind:checked={wasProgressUpdatedToday}
+						bind:onChange={onProgressUpdated}
+						bind:color
+					/>
 				{:else}
 					<span>Can progress in x days</span>
 				{/if}

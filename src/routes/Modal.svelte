@@ -34,6 +34,7 @@
 		background: var(--default-bg-color);
 		color: var(--default-accent-color);
 		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.329));
+		overflow: visible;
 	}
 
 	.inner {

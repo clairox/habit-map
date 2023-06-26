@@ -1,16 +1,27 @@
 <script lang="ts">
 	import { getHabits } from '$lib/Habit';
+	import type { ThemeColor } from '../../types/types';
+	import ColorSelect from '../ColorSelect.svelte';
 	import Modal from '../Modal.svelte';
 	import { habits } from '../stores';
 
-	export let currentTitle: string, currentGoal: number, currentInterval: number;
+	export let currentTitle: string,
+		currentGoal: number,
+		currentInterval: number,
+		currentColor: ThemeColor;
 
 	export let showModal = false;
-	export let editHabit: (title?: string, goal?: number, interval?: number) => void;
+	export let editHabit: (
+		title?: string,
+		goal?: number,
+		interval?: number,
+		color?: ThemeColor
+	) => void;
 
 	let title: string;
 	let interval: number;
 	let goal: number;
+	let color: ThemeColor;
 
 	$: interval = Math.floor(interval);
 	$: goal = Math.floor(goal);
@@ -19,6 +30,7 @@
 		title = currentTitle;
 		goal = currentGoal;
 		interval = currentInterval;
+		color = currentColor;
 	};
 
 	resetValues();
@@ -32,7 +44,7 @@
 	};
 
 	const onSubmit = () => {
-		editHabit(title, +goal, +interval);
+		editHabit(title, +goal, +interval, color);
 		habits.set(getHabits());
 
 		const habit = $habits.find((h) => title === h.title);
@@ -41,10 +53,13 @@
 			currentTitle = habit.title;
 			currentGoal = habit.goal;
 			currentInterval = habit.interval;
+			currentColor = habit.color;
 		}
 
 		dialog.close();
 	};
+
+	const selectSize: 'sm' | 'lg' = 'lg';
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
@@ -69,6 +84,10 @@
 				<label class="input-label" for="goal-input">Goal</label>
 				<input class="input" type="text" name="goal-input" placeholder="Goal" bind:value={goal} />
 			</div>
+		</div>
+		<div class="form-group">
+			<label class="input-label" for="color-input">Color</label>
+			<ColorSelect size={selectSize} bind:value={color} />
 		</div>
 		<div class="form-actions">
 			<button class="button" type="submit">Confirm</button>
