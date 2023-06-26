@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { getOneCategory } from '$lib/Category';
 	import { getHabits, updateOneHabit } from '$lib/Habit';
-	import type { Category, Color } from '../types/types';
-	import { colors, defaultColor } from '../util/colors';
 	import { getToday } from '../util/time';
 	import Checkbox from './Checkbox.svelte';
 	import DropdownMenu from './DropdownMenu.svelte';
@@ -14,7 +11,6 @@
 		label: string = '',
 		goal: number = 0,
 		interval: number = 0,
-		categoryId: string = '',
 		starred: boolean = false,
 		streak: number = 0,
 		lastStreakDate: Date,
@@ -25,24 +21,18 @@
 
 	let streakIncremented = tempLastStreakDate.toString() === getToday().toString();
 
-	let category: Category | null;
-
-	$: category = categoryId ? getOneCategory(categoryId) : null;
-	$: color = category?.color;
-
 	let isMenuOpen = false;
 	let showEditModal = false;
 	let showDeleteModal = false;
 
-	const editHabit = (label?: string, goal?: number, interval?: number, categoryId?: string) => {
-		updateOneHabit(id, { label, goal, interval, categoryId });
+	const editHabit = (label?: string, goal?: number, interval?: number) => {
+		updateOneHabit(id, { label, goal, interval });
 	};
 
 	const editHabitModalProps = {
 		currentLabel: label,
 		currentGoal: goal,
-		currentInterval: interval,
-		currentCategoryId: categoryId
+		currentInterval: interval
 	};
 
 	const formatInterval = (interval: number) => {
@@ -77,7 +67,7 @@
 	];
 </script>
 
-<div class="habit container" style="color: {color?.primary}">
+<div class="habit container">
 	<div class="top-section">
 		<div class="header">
 			<h3 class="title">
@@ -95,10 +85,7 @@
 			</div>
 		</div>
 		<div class="progress-bar">
-			<div
-				class="progress"
-				style="width: {completionPercentage}%; background-color: {color?.primary};;"
-			/>
+			<div class="progress" style="width: {completionPercentage}%;" />
 		</div>
 	</div>
 </div>
@@ -110,10 +97,6 @@
 	h3,
 	p {
 		margin: 0;
-	}
-
-	.material-symbols-sharp {
-		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
 	}
 
 	.container {
@@ -160,14 +143,6 @@
 		display: flex;
 		justify-content: space-between;
 		padding: 0.5rem 0.7rem 0.3rem 0.7rem;
-	}
-
-	.category {
-		font-weight: normal;
-		font-size: 1rem;
-	}
-
-	.streak-increment-checkbox {
 	}
 
 	.progress-bar {

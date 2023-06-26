@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { createHabit, getHabits } from '$lib/Habit';
 	import Modal from '../Modal.svelte';
-	import { categories, habits } from '../stores';
-	import NewCategoryModal from './NewCategoryModal.svelte';
+	import { habits } from '../stores';
 
 	export let showModal = false;
 
@@ -11,7 +10,6 @@
 	let label = '';
 	let interval = 1;
 	let goal = 1;
-	let categoryId = '';
 
 	$: interval = Math.floor(interval);
 	$: goal = Math.floor(goal);
@@ -30,11 +28,10 @@
 		label = '';
 		goal = 1;
 		interval = 1;
-		categoryId = '';
 	};
 
 	const onSubmit = () => {
-		createHabit(label, interval, goal, categoryId);
+		createHabit(label, interval, goal);
 		habits.set(getHabits());
 
 		dialog.close();
@@ -66,28 +63,12 @@
 				<input class="input" type="text" name="goal-input" bind:value={goal} />
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="input-label" for="category-input">Category</label>
-			<select
-				class="input"
-				name="category-input"
-				on:change={(e) => onCategorySelected(e)}
-				bind:value={categoryId}
-			>
-				<option value="">No category</option>
-				{#each $categories as category (category.id)}
-					<option value={category.id}>{category.name}</option>
-				{/each}
-				<option value="createNewCategory">+ New category</option>
-			</select>
-		</div>
 		<div class="form-actions">
 			<button class="button" type="submit">Add</button>
 			<button class="button" type="button" on:click={() => dialog.close()}>Cancel</button>
 		</div>
 	</form>
 </Modal>
-<NewCategoryModal bind:showModal={showCategoryModal} bind:categoryId />
 
 <style>
 </style>

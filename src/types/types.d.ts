@@ -3,25 +3,12 @@ export interface Habit {
 	label: string;
 	goal: number;
 	interval: number;
-	categoryId?: string;
 	starred: boolean;
 	streak: number;
 	lastStreakDate: Date;
 	tempLastStreakDate: Date;
 	createdAt: Date;
 	updatedAt: Date;
-}
-
-export interface CompactHabit {
-	id: string;
-	label: string;
-	goal: number;
-	interval: number;
-	categoryId?: string;
-	starred: boolean;
-	streak: number;
-	lastStreakDate: Date;
-	tempLastStreakDate: Date;
 }
 
 export interface GetHabitsOptions {
@@ -35,7 +22,6 @@ export interface EditableHabitProperties {
 	goal?: number;
 	interval?: number;
 	entries?: HabitEntry[];
-	categoryId?: string;
 	starred?: boolean;
 	streak?: number;
 	tempLastStreakDate?: Date;
@@ -52,19 +38,4 @@ export interface Icon {
 	id: string;
 	name: string;
 	imageUrl: string;
-}
-
-export interface Category {
-	id: string;
-	name: string;
-	color: Color;
-	icon: string;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface EditableCategoryProperties {
-	name?: string;
-	color?: Color;
-	icon?: string;
 }

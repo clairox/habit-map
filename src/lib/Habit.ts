@@ -1,19 +1,8 @@
-import type {
-	EditableHabitProperties,
-	GetHabitsOptions,
-	Habit,
-	CompactHabit,
-	SortFunc
-} from '../types/types';
+import type { EditableHabitProperties, GetHabitsOptions, Habit, SortFunc } from '../types/types';
 import { v4 as uuidv4 } from 'uuid';
 import { nDaysAgo } from '../util/time';
 
-export function createHabit(
-	label: string,
-	interval: number,
-	goal: number,
-	categoryId?: string
-): Habit | null {
+export function createHabit(label: string, interval: number, goal: number): Habit | null {
 	const now = new Date();
 
 	const newHabit: Habit = {
@@ -21,7 +10,6 @@ export function createHabit(
 		label,
 		interval,
 		goal,
-		categoryId,
 		starred: false,
 		streak: 0,
 		lastStreakDate: new Date(Date.now() - Date.now()),
@@ -33,7 +21,7 @@ export function createHabit(
 	return storeOneHabitLocal(newHabit) || null;
 }
 
-export function getHabits(options?: GetHabitsOptions): CompactHabit[] {
+export function getHabits(options?: GetHabitsOptions): Habit[] {
 	let habits = retrieveHabitsLocal();
 
 	if (options) {
@@ -54,30 +42,7 @@ export function getHabits(options?: GetHabitsOptions): CompactHabit[] {
 		habits = sort(habits);
 	}
 
-	return habits.map((habit) => {
-		const {
-			id,
-			label,
-			goal,
-			interval,
-			categoryId,
-			starred,
-			streak,
-			lastStreakDate,
-			tempLastStreakDate
-		} = habit;
-		return {
-			id,
-			label,
-			goal,
-			interval,
-			categoryId,
-			starred,
-			streak,
-			lastStreakDate,
-			tempLastStreakDate
-		};
-	});
+	return habits;
 }
 
 export function getOneHabit(id: string): Habit | null {
@@ -114,8 +79,6 @@ function editOneHabitLocal(id: string, data: EditableHabitProperties): Habit | u
 	if (!habit) return;
 
 	const updatedHabit = { ...habit, ...data, updatedAt: new Date() };
-
-	if (updatedHabit.categoryId === '') delete updatedHabit.categoryId;
 
 	deleteOneHabitLocal(id);
 	return storeOneHabitLocal(updatedHabit);
