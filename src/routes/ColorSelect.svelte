@@ -21,8 +21,6 @@
 	const onChange = (e: Event, selectedValue: ThemeColor) => {
 		value = selectedValue;
 	};
-
-	$: console.log(value);
 </script>
 
 <button
