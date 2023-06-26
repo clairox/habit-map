@@ -3,7 +3,7 @@
 	import Modal from '../Modal.svelte';
 	import { habits } from '../stores';
 
-	export let id: string, label: string;
+	export let id: string, title: string;
 	export let showModal = false;
 
 	let dialog: HTMLDialogElement;
@@ -19,10 +19,10 @@
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
-	<h2 class="title" slot="header">Delete "{label}"</h2>
+	<h2 class="title" slot="header">Delete "{title}"</h2>
 	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
 		<div>
-			Are you sure you want to delete {label}?
+			Are you sure you want to delete {title}?
 		</div>
 		<div class="form-actions">
 			<button class="button" type="submit">Confirm</button>

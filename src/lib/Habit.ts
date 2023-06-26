@@ -2,12 +2,12 @@ import type { EditableHabitProperties, GetHabitsOptions, Habit, SortFunc } from 
 import { v4 as uuidv4 } from 'uuid';
 import { getToday, nDaysAgo, nDaysBefore } from '../util/time';
 
-export function createHabit(label: string, interval: number, goal: number): Habit | null {
+export function createHabit(title: string, interval: number, goal: number): Habit | null {
 	const now = new Date();
 
 	const newHabit: Habit = {
 		id: uuidv4(),
-		label,
+		title,
 		interval,
 		goal,
 		starred: false,

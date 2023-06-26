@@ -1,6 +1,6 @@
 export interface Habit {
 	id: string;
-	label: string;
+	title: string;
 	goal: number;
 	interval: number;
 	starred: boolean;
@@ -18,7 +18,7 @@ export interface GetHabitsOptions {
 }
 
 export interface EditableHabitProperties {
-	label?: string;
+	title?: string;
 	goal?: number;
 	interval?: number;
 	entries?: HabitEntry[];

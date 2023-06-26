@@ -3,12 +3,12 @@
 	import Modal from '../Modal.svelte';
 	import { habits } from '../stores';
 
-	export let currentLabel: string, currentGoal: number, currentInterval: number;
+	export let currentTitle: string, currentGoal: number, currentInterval: number;
 
 	export let showModal = false;
-	export let editHabit: (label?: string, goal?: number, interval?: number) => void;
+	export let editHabit: (title?: string, goal?: number, interval?: number) => void;
 
-	let label: string;
+	let title: string;
 	let interval: number;
 	let goal: number;
 
@@ -16,7 +16,7 @@
 	$: goal = Math.floor(goal);
 
 	const resetValues = () => {
-		label = currentLabel;
+		title = currentTitle;
 		goal = currentGoal;
 		interval = currentInterval;
 	};
@@ -36,19 +36,19 @@
 	};
 
 	let onClose = () => {
-		label = currentLabel;
+		title = currentTitle;
 		goal = currentGoal;
 		interval = currentInterval;
 	};
 
 	const onSubmit = () => {
-		editHabit(label, +goal, +interval);
+		editHabit(title, +goal, +interval);
 		habits.set(getHabits());
 
-		const habit = $habits.find((h) => label === h.label);
+		const habit = $habits.find((h) => title === h.title);
 
 		if (habit) {
-			currentLabel = habit.label;
+			currentTitle = habit.title;
 			currentGoal = habit.goal;
 			currentInterval = habit.interval;
 		}
@@ -58,11 +58,11 @@
 </script>
 
 <Modal bind:showModal bind:dialog bind:onClose>
-	<h2 class="title" slot="header">Edit "{label}"</h2>
+	<h2 class="title" slot="header">Edit "{title}"</h2>
 	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
 		<div class="form-group">
 			<label class="input-label" for="title-input">Title</label>
-			<input class="input" type="text" name="title-input" placeholder="Title" bind:value={label} />
+			<input class="input" type="text" name="title-input" placeholder="Title" bind:value={title} />
 		</div>
 		<div class="form-row">
 			<div class="form-group">

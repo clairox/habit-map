@@ -8,7 +8,7 @@
 	import { habits } from './stores';
 
 	export let id: string,
-		label: string = '',
+		title: string = '',
 		goal: number = 0,
 		interval: number = 0,
 		starred: boolean = false,
@@ -29,12 +29,12 @@
 	let showEditModal = false;
 	let showDeleteModal = false;
 
-	const editHabit = (label?: string, goal?: number, interval?: number) => {
-		updateOneHabit(id, { label, goal, interval });
+	const editHabit = (title?: string, goal?: number, interval?: number) => {
+		updateOneHabit(id, { title, goal, interval });
 	};
 
 	const editHabitModalProps = {
-		currentLabel: label,
+		currentTitle: title,
 		currentGoal: goal,
 		currentInterval: interval
 	};
@@ -75,7 +75,7 @@
 	<div class="top-section">
 		<div class="header">
 			<h3 class="title">
-				{label.slice(0, 1).toUpperCase() + label.slice(1)}
+				{title.slice(0, 1).toUpperCase() + title.slice(1)}
 				<span class="completetion-percentage"> - {completionPercentage}%</span>
 			</h3>
 		</div>
@@ -99,7 +99,7 @@
 </div>
 
 <EditHabitModal {...editHabitModalProps} {editHabit} bind:showModal={showEditModal} />
-<DeleteHabitModal {id} {label} bind:showModal={showDeleteModal} />
+<DeleteHabitModal {id} {title} bind:showModal={showDeleteModal} />
 
 <style>
 	h3,

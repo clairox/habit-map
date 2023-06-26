@@ -7,7 +7,7 @@
 
 	let dialog: HTMLDialogElement;
 
-	let label = '';
+	let title = '';
 	let interval = 1;
 	let goal = 1;
 
@@ -25,13 +25,13 @@
 	};
 
 	let onClose = () => {
-		label = '';
+		title = '';
 		goal = 1;
 		interval = 1;
 	};
 
 	const onSubmit = () => {
-		createHabit(label, interval, goal);
+		createHabit(title, interval, goal);
 		habits.set(getHabits());
 
 		dialog.close();
@@ -43,7 +43,7 @@
 	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
 		<div class="form-group">
 			<label class="input-label" for="title-input">Title</label>
-			<input class="input" type="text" name="title-input" bind:value={label} />
+			<input class="input" type="text" name="title-input" bind:value={title} />
 		</div>
 
 		<div class="form-row">
