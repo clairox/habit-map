@@ -25,16 +25,6 @@
 
 	let dialog: HTMLDialogElement;
 
-	let showCategoryModal = false;
-
-	const onCategorySelected = (e: Event) => {
-		const select = e.target as HTMLSelectElement;
-
-		if (select.value === 'createNewCategory') {
-			showCategoryModal = true;
-		}
-	};
-
 	let onClose = () => {
 		title = currentTitle;
 		goal = currentGoal;

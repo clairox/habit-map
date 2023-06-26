@@ -14,16 +14,6 @@
 	$: interval = Math.floor(interval);
 	$: goal = Math.floor(goal);
 
-	let showCategoryModal = false;
-
-	const onCategorySelected = (e: Event) => {
-		const select = e.target as HTMLSelectElement;
-
-		if (select.value === 'createNewCategory') {
-			showCategoryModal = true;
-		}
-	};
-
 	let onClose = () => {
 		title = '';
 		goal = 1;
