@@ -48,8 +48,3 @@ export const colors = [
 		darkColor: 'rgb(43, 136, 113)'
 	}
 ];
-
-export const defaultColor = {
-	name: 'Green',
-	primary: '#00b579'
-};
