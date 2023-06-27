@@ -2,7 +2,7 @@
 	import { getHabits, updateOneHabit } from '$lib/Habit';
 	import type { ThemeColor } from '../types/types';
 	import { colors } from '../util/colors';
-	import { getToday, nDaysBefore } from '../util/time';
+	import { daysUntil, getToday, nDaysBefore } from '../util/time';
 	import Checkbox from './Checkbox.svelte';
 	import DropdownMenu from './DropdownMenu.svelte';
 	import DeleteHabitModal from './Modals/DeleteHabitModal.svelte';
@@ -107,7 +107,7 @@
 						bind:color
 					/>
 				{:else}
-					<span>Can progress in x days</span>
+					<span>Can progress in {daysUntil(nDaysBefore(tempLastStreakDate, -interval))} days</span>
 				{/if}
 			</div>
 		</div>
@@ -143,6 +143,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		height: 4rem;
 		border-bottom-left-radius: 6px;
 		border-bottom-right-radius: 6px;
 		background: var(--default-primary-color);
