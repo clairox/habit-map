@@ -32,14 +32,14 @@
 	let showEditModal = false;
 	let showDeleteModal = false;
 
-	const editHabit = (title?: string, goal?: number, interval?: number, color?: ThemeColor) => {
-		updateOneHabit(id, { title, goal, interval, color });
+	const editHabit = (title?: string, interval?: number, goal?: number, color?: ThemeColor) => {
+		updateOneHabit(id, { title, interval, goal, color });
 	};
 
 	const editHabitModalProps = {
 		currentTitle: title,
-		currentGoal: goal,
 		currentInterval: interval,
+		currentGoal: goal,
 		currentColor: color
 	};
 

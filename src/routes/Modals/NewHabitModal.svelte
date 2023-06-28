@@ -9,22 +9,29 @@
 
 	let dialog: HTMLDialogElement;
 
-	let title = '';
-	let interval = 1;
-	let goal = 1;
+	let title: string = '';
+	let interval: string = '1';
+	let goal: string = '1';
 	let color: ThemeColor = 'Jade';
 
-	$: interval = Math.floor(interval);
-	$: goal = Math.floor(goal);
+	$: interval = enforceIntOnly(interval);
+	$: goal = enforceIntOnly(goal);
+
+	const enforceIntOnly = (text: string) => {
+		return text.replace(/[^0-9]/g, '');
+	};
 
 	let onClose = () => {
 		title = '';
-		goal = 1;
-		interval = 1;
+		interval = '1';
+		goal = '1';
 	};
 
 	const onSubmit = () => {
-		createHabit(title, interval, goal, color);
+		const intervalAsInt = Math.floor(parseInt(interval)) || 1;
+		const goalAsInt = Math.floor(parseInt(goal)) || 1;
+
+		createHabit(title, intervalAsInt, goalAsInt, color);
 		habits.set(getHabits());
 
 		dialog.close();

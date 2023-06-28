@@ -6,30 +6,34 @@
 	import { habits } from '../stores';
 
 	export let currentTitle: string,
-		currentGoal: number,
 		currentInterval: number,
+		currentGoal: number,
 		currentColor: ThemeColor;
 
 	export let showModal = false;
 	export let editHabit: (
 		title?: string,
-		goal?: number,
 		interval?: number,
+		goal?: number,
 		color?: ThemeColor
 	) => void;
 
 	let title: string;
-	let interval: number;
-	let goal: number;
+	let interval: string;
+	let goal: string;
 	let color: ThemeColor;
 
-	$: interval = Math.floor(interval);
-	$: goal = Math.floor(goal);
+	$: interval = enforceIntOnly(interval);
+	$: goal = enforceIntOnly(goal);
+
+	const enforceIntOnly = (text: string) => {
+		return text.replace(/[^0-9]/g, '');
+	};
 
 	const resetValues = () => {
 		title = currentTitle;
-		goal = currentGoal;
-		interval = currentInterval;
+		interval = currentInterval.toString();
+		goal = currentGoal.toString();
 		color = currentColor;
 	};
 
@@ -39,21 +43,24 @@
 
 	let onClose = () => {
 		title = currentTitle;
-		goal = currentGoal;
-		interval = currentInterval;
+		interval = currentInterval.toString();
+		goal = currentGoal.toString();
 		color = currentColor;
 	};
 
 	const onSubmit = () => {
-		editHabit(title, +goal, +interval, color);
+		const intervalAsInt = Math.floor(parseInt(interval)) || currentInterval;
+		const goalAsInt = Math.floor(parseInt(goal)) || currentGoal;
+
+		editHabit(title, intervalAsInt, goalAsInt, color);
 		habits.set(getHabits());
 
 		const habit = $habits.find((h) => title === h.title);
 
 		if (habit) {
 			currentTitle = habit.title;
-			currentGoal = habit.goal;
 			currentInterval = habit.interval;
+			currentGoal = habit.goal;
 			currentColor = habit.color;
 		}
 
