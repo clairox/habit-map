@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { ThemeColor } from '../types/types';
 	import { colors } from '../util/colors';
 
@@ -9,6 +10,19 @@
 	let optionHeight = size === 'lg' ? '2.6rem' : '1.2rem';
 
 	let isMenuOpen = false;
+	let select: HTMLElement;
+
+	const onClick = (e: Event) => {
+		if (!select.contains(e.target as Node)) isMenuOpen = false;
+	};
+
+	$: if (select && isMenuOpen) document.addEventListener('click', onClick);
+
+	onMount(() => {
+		return () => {
+			document.removeEventListener('click', onClick);
+		};
+	});
 
 	const getPrimaryColor = (colorName: string) =>
 		colors.find((color) => color.name === colorName)!.primaryColor;
@@ -27,6 +41,7 @@
 	class="input container"
 	style="height: {height}"
 	on:click|preventDefault={() => (isMenuOpen = !isMenuOpen)}
+	bind:this={select}
 >
 	<div class="input-bar">
 		<span class="input-bar-content">

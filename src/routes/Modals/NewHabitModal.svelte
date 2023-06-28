@@ -25,6 +25,7 @@
 		title = '';
 		interval = '1';
 		goal = '1';
+		color = 'Jade';
 	};
 
 	const onSubmit = () => {
