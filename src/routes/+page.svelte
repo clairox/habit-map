@@ -39,7 +39,7 @@
 		--default-dark-color: rgb(43, 136, 113);
 		--default-accent-color: rgb(255, 255, 255);
 		--default-bg-color: rgb(64, 62, 71);
-		--default-bg-light-color: rgb(100, 97, 110);
+		--default-bg-secondary-color: rgb(100, 97, 110);
 	}
 
 	:global(body) {

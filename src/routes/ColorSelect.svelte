@@ -139,7 +139,7 @@
 	/* .empty-options {
 		height: 1rem;
 		width: 100%;
-		border-top: 1px solid var(--default-bg-light-color);
+		border-top: 1px solid var(--default-bg-secondary-color);
 		background-color: var(--default-accent-color);
 	}
 

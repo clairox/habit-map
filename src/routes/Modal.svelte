@@ -28,7 +28,7 @@
 <style>
 	dialog {
 		padding: 0;
-		border: 5px solid var(--default-bg-light-color);
+		border: 5px solid var(--default-bg-secondary-color);
 		border-radius: 10px;
 		width: 75vw;
 		background: var(--default-bg-color);
@@ -43,7 +43,7 @@
 
 	.header {
 		padding: 0.2rem 0.7rem 0.3rem 0.7rem;
-		background: var(--default-bg-light-color);
+		background: var(--default-bg-secondary-color);
 		font-weight: bold;
 	}
 
