@@ -4,12 +4,12 @@
 
 	let menu: HTMLElement;
 
-	const onClick = (e: Event) => {
+	const onMouseDown = (e: Event) => {
 		if (!menu.contains(e.target as Node)) isMenuOpen = false;
-		document.removeEventListener('mousedown', onClick);
+		document.removeEventListener('mousedown', onMouseDown);
 	};
 
-	$: if (menu && isMenuOpen) document.addEventListener('mousedown', onClick);
+	$: if (menu && isMenuOpen) document.addEventListener('mousedown', onMouseDown);
 
 	const onMenuItemClick = (event: Event, action: (event: Event) => void) => {
 		isMenuOpen = false;
