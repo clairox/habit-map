@@ -56,17 +56,15 @@
 	$: lightColor = colors.find((c) => c.name === color)!.lightColor;
 
 	const onStarredClicked = () => {
-		isMenuOpen = false;
 		updateOneHabit(id, { starred: !starred });
+		habits.set(getHabits());
 	};
 
 	const onEditClicked = () => {
-		isMenuOpen = false;
 		showEditModal = true;
 	};
 
 	const onDeleteClicked = () => {
-		isMenuOpen = false;
 		showDeleteModal = true;
 	};
 
@@ -80,10 +78,12 @@
 	};
 
 	let options = [
-		{ label: 'Starred', action: onStarredClicked },
-		{ label: 'Edit', action: onEditClicked },
-		{ label: 'Delete', action: onDeleteClicked }
+		{ label: 'Starred', icon: starred ? 'star' : 'star_outline', action: onStarredClicked },
+		{ label: 'Edit', icon: 'edit', action: onEditClicked },
+		{ label: 'Delete', icon: 'delete', action: onDeleteClicked }
 	];
+
+	$: starred ? (options[0].icon = 'star') : (options[0].icon = 'star_outline');
 </script>
 
 <div class="habit container" style="border: 5px solid {lightColor}; background: {lightColor}">

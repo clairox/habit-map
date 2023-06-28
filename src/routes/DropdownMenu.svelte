@@ -1,10 +1,23 @@
 <script lang="ts">
 	export let options: { label: string; icon?: string; action: (event: Event) => void }[];
-
 	export let isMenuOpen = false;
+
+	let menu: HTMLElement;
+
+	const onClick = (e: Event) => {
+		if (!menu.contains(e.target as Node)) isMenuOpen = false;
+		document.removeEventListener('mousedown', onClick);
+	};
+
+	$: if (menu && isMenuOpen) document.addEventListener('mousedown', onClick);
+
+	const onMenuItemClick = (event: Event, action: (event: Event) => void) => {
+		isMenuOpen = false;
+		action(event);
+	};
 </script>
 
-<div class="container">
+<div class="container" bind:this={menu}>
 	<button
 		class="button material-symbols-rounded"
 		id="options-menu-button"
@@ -19,7 +32,15 @@
 	{#if isMenuOpen}
 		<ul class="options-menu" id="options-menu" role="menu" aria-labelledby="options-menu-button">
 			{#each options as option (option.label)}
-				<li class="menu-item" role="menuitem" on:keydown={option.action} on:click={option.action}>
+				<li
+					class="menu-item"
+					role="menuitem"
+					on:keydown={(e) => onMenuItemClick(e, option.action)}
+					on:click={(e) => onMenuItemClick(e, option.action)}
+				>
+					{#if option.icon}
+						<span class="material-icons icon">{option.icon}</span>
+					{/if}
 					{option.label}
 				</li>
 			{/each}
@@ -45,8 +66,8 @@
 
 	.options-menu {
 		position: absolute;
-		top: 0.6rem;
-		left: -3.2rem;
+		top: -0.9rem;
+		right: 0rem;
 		padding: 0;
 		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
 			'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -56,7 +77,10 @@
 	}
 
 	.menu-item {
-		padding: 0.5rem 0.7rem;
+		display: flex;
+		gap: 0.5rem;
+		padding: 0.4rem 0.8rem;
+		line-height: 1.4rem;
 	}
 
 	.menu-item:not(:last-child) {
@@ -66,5 +90,10 @@
 	.menu-item:hover {
 		background-color: #e0e0e0;
 		color: #313131;
+	}
+
+	.icon {
+		text-align: center;
+		font-size: 1.4rem;
 	}
 </style>
