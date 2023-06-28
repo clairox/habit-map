@@ -17,6 +17,7 @@
 	};
 
 	$: if (select && isMenuOpen) document.addEventListener('click', onClick);
+	$: if (select && !isMenuOpen) document.removeEventListener('click', onClick);
 
 	onMount(() => {
 		return () => {
