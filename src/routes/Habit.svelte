@@ -26,6 +26,8 @@
 		getToday().toString() === tempLastStreakDate.toString() ||
 		getToday() >= nDaysBefore(tempLastStreakDate, -interval);
 
+	$: if (!canProgress) color = 'Gray' as ThemeColor;
+
 	let wasProgressUpdatedToday = getToday() < nDaysBefore(tempLastStreakDate, -interval);
 
 	let isMenuOpen = false;
