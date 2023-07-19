@@ -1,8 +1,10 @@
-const HOUR = 1000 * 60 * 60;
+const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
 const DAY = HOUR * 24;
 
 const normalizeDate = (date: Date): Date => {
-	return new Date(Math.floor(Date.parse(date.toString()) / DAY) * DAY);
+	const timezoneOffset = MINUTE * date.getTimezoneOffset();
+	return new Date(Math.floor(Date.parse(date.toString()) / DAY) * DAY + timezoneOffset);
 };
 
 export const getToday = (): Date => {
