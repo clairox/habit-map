@@ -26,8 +26,6 @@
 		getToday().toString() === tempLastStreakDate.toString() ||
 		getToday() >= nDaysBefore(tempLastStreakDate, -interval);
 
-	$: if (!canProgress) color = 'Gray' as ThemeColor;
-
 	let wasProgressUpdatedToday = getToday() < nDaysBefore(tempLastStreakDate, -interval);
 
 	let isMenuOpen = false;
@@ -54,8 +52,12 @@
 
 	let primaryColor: string, lightColor: string;
 
-	$: primaryColor = colors.find((c) => c.name === color)!.primaryColor;
-	$: lightColor = colors.find((c) => c.name === color)!.lightColor;
+	$: primaryColor = canProgress
+		? colors.find((c) => c.name === color)!.primaryColor
+		: 'rgb(127, 130, 138)';
+	$: lightColor = canProgress
+		? colors.find((c) => c.name === color)!.lightColor
+		: 'rgb(183, 187, 199)';
 
 	const onStarredClicked = () => {
 		updateOneHabit(id, { starred: !starred });
