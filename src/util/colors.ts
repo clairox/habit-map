@@ -38,10 +38,5 @@ export const colors = [
 		name: 'Salmon',
 		primaryColor: 'rgb(244, 191, 201)',
 		lightColor: 'rgb(255, 217, 226)'
-	},
-	{
-		name: 'Gray',
-		primaryColor: 'rgb(127, 130, 138)',
-		lightColor: 'rgb(183, 187, 199)'
 	}
 ];
