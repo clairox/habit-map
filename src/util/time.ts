@@ -1,5 +1,3 @@
-import { browser } from '$app/environment';
-
 const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
 const DAY = HOUR * 24;
