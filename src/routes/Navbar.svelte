@@ -1,15 +1,24 @@
+<script lang="ts">
+	import SettingsModal from './Modals/SettingsModal.svelte';
+
+	let showSettingsModal = false;
+</script>
+
 <nav class="nav">
 	<div id="nav-left">
 		<h1 class="brand">HabitMap</h1>
 	</div>
 	<div id="nav-right">
-		<button class="button settings-button material-symbols-rounded">settings</button>
+		<button
+			class="button settings-button material-symbols-rounded"
+			on:click={() => (showSettingsModal = !showSettingsModal)}>settings</button
+		>
 	</div>
 </nav>
+<SettingsModal bind:showModal={showSettingsModal} />
 
 <style>
-	h1,
-	h3 {
+	h1 {
 		margin: 0;
 	}
 
@@ -26,8 +35,8 @@
 		background: var(--default-primary-color);
 	}
 
-	#nav-left {
-	}
+	/* #nav-left {
+	} */
 
 	#nav-right {
 		display: flex;
