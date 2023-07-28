@@ -2,9 +2,14 @@
 	import Habit from './Habit.svelte';
 	import Navbar from './Navbar.svelte';
 	import NewHabitModal from './Modals/NewHabitModal.svelte';
-	import { habits } from './stores';
+	import { colors } from '../util/colors';
+	import { habits, name, themeColor } from './stores';
 
 	let showNewHabitModal = false;
+
+	$: primaryColor = colors.find((c) => c.name === $themeColor)!.primaryColor;
+
+	if (!$name) console.log('no name');
 </script>
 
 <Navbar />
@@ -21,7 +26,11 @@
 	</section>
 </main>
 <div class="toolbar">
-	<button class="button add-habit-button" on:click={() => (showNewHabitModal = true)}>
+	<button
+		class="button add-habit-button"
+		style="background: {primaryColor}"
+		on:click={() => (showNewHabitModal = true)}
+	>
 		<span class="material-symbols-rounded">add</span>
 	</button>
 </div>

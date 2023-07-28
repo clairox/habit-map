@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createHabit, getHabits } from '$lib/Habit';
 	import Modal from '../Modal.svelte';
-	import { habits } from '../stores';
+	import { habits, themeColor } from '../stores';
 	import ColorSelect from '../ColorSelect.svelte';
 	import type { ThemeColor } from '../../types/types';
 
@@ -12,10 +12,12 @@
 	let title: string = '';
 	let interval: string = '1';
 	let goal: string = '1';
-	let color: ThemeColor = 'Jade';
+	let color: ThemeColor = $themeColor;
 
 	$: interval = enforceIntOnly(interval);
 	$: goal = enforceIntOnly(goal);
+
+	$: color = $themeColor;
 
 	const enforceIntOnly = (text: string) => {
 		return text.replace(/[^0-9]/g, '');

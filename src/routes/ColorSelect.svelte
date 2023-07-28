@@ -2,9 +2,10 @@
 	import { onMount } from 'svelte';
 	import type { ThemeColor } from '../types/types';
 	import { colors } from '../util/colors';
+	import { themeColor } from './stores';
 
 	export let size: 'sm' | 'lg' = 'lg';
-	export let value: ThemeColor = 'Jade';
+	export let value: ThemeColor = $themeColor;
 
 	let height = size === 'lg' ? '2.4rem' : '1.6rem';
 	let optionHeight = size === 'lg' ? '2.6rem' : '1.2rem';

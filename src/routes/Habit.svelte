@@ -7,13 +7,13 @@
 	import DropdownMenu from './DropdownMenu.svelte';
 	import DeleteHabitModal from './Modals/DeleteHabitModal.svelte';
 	import EditHabitModal from './Modals/EditHabitModal.svelte';
-	import { habits } from './stores';
+	import { habits, themeColor } from './stores';
 
 	export let id: string,
 		title: string = '',
 		goal: number = 0,
 		interval: number = 0,
-		color: ThemeColor = 'Jade',
+		color: ThemeColor = $themeColor,
 		starred: boolean = false,
 		streak: number = 0,
 		lastStreakDate: Date,

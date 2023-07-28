@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { colors } from '../util/colors';
+	import { themeColor } from './stores';
 	import SettingsModal from './Modals/SettingsModal.svelte';
+
+	$: primaryColor = colors.find((c) => c.name === $themeColor)!.primaryColor;
 
 	let showSettingsModal = false;
 </script>
 
-<nav class="nav">
+<nav class="nav" style="background: {primaryColor}">
 	<div id="nav-left">
 		<h1 class="brand">HabitMap</h1>
 	</div>
