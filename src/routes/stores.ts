@@ -38,6 +38,11 @@ export const deleteOneHabit = (id: string): void => {
 
 export const name: Writable<string> = writable(browser ? localStorage.getItem('name') || '' : '');
 
+export const setName = (newName: string) => {
+	localStorage.setItem('name', newName);
+	name.set(localStorage.getItem('name') || '');
+};
+
 // Theme Color
 
 const getThemeColor = (): ThemeColor => {

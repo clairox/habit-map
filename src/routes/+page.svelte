@@ -4,12 +4,14 @@
 	import NewHabitModal from './Modals/NewHabitModal.svelte';
 	import { colors } from '../util/colors';
 	import { habits, name, themeColor } from './stores';
+	import CreateNameModal from './Modals/CreateNameModal.svelte';
 
 	let showNewHabitModal = false;
+	let showCreateNameModal = false;
 
 	$: primaryColor = colors.find((c) => c.name === $themeColor)!.primaryColor;
 
-	if (!$name) console.log('no name');
+	if (!$name) showCreateNameModal = true;
 </script>
 
 <Navbar />
@@ -35,6 +37,7 @@
 	</button>
 </div>
 <NewHabitModal bind:showModal={showNewHabitModal} />
+<CreateNameModal bind:showModal={showCreateNameModal} />
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&family=Lato&display=swap');

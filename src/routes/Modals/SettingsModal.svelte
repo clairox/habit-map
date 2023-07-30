@@ -2,7 +2,12 @@
 	import type { ThemeColor } from '../../types/types';
 	import ColorSelect from '../ColorSelect.svelte';
 	import Modal from '../Modal.svelte';
-	import { name as currentName, themeColor as currentThemeColor, setThemeColor } from '../stores';
+	import {
+		name as currentName,
+		themeColor as currentThemeColor,
+		setName,
+		setThemeColor
+	} from '../stores';
 
 	export let showModal = false;
 
@@ -14,6 +19,7 @@
 	let onClose = () => {};
 
 	const onSubmit = () => {
+		setName(name);
 		setThemeColor(themeColor);
 		dialog.close();
 	};
