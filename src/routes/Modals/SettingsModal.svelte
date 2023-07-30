@@ -2,7 +2,7 @@
 	import type { ThemeColor } from '../../types/types';
 	import ColorSelect from '../ColorSelect.svelte';
 	import Modal from '../Modal.svelte';
-	import { name as currentName, themeColor as currentThemeColor } from '../stores';
+	import { name as currentName, themeColor as currentThemeColor, setThemeColor } from '../stores';
 
 	export let showModal = false;
 
@@ -14,9 +14,7 @@
 	let onClose = () => {};
 
 	const onSubmit = () => {
-		localStorage.setItem('theme-color', themeColor);
-		currentThemeColor.set((localStorage.getItem('theme-color') as ThemeColor) || 'Jade');
-
+		setThemeColor(themeColor);
 		dialog.close();
 	};
 </script>
