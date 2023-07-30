@@ -16,9 +16,11 @@
 
 <Navbar />
 <main>
-	<!-- <section class="dashboard">
-		<h1>Hello, Claire</h1>
-	</section> -->
+	{#if $name}
+		<section class="dashboard">
+			<h1>hello, {$name}!</h1>
+		</section>
+	{/if}
 	<section class="habits-section">
 		<div class="habits-content">
 			{#each $habits as habit (habit.id)}
@@ -168,5 +170,14 @@
 
 		/* Support for IE. */
 		font-feature-settings: 'liga';
+	}
+
+	h1 {
+		font-size: 2rem;
+	}
+
+	.dashboard {
+		margin: auto;
+		width: 95%;
 	}
 </style>

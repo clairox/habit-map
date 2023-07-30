@@ -16,6 +16,8 @@
 	let name: string = $currentName;
 	let themeColor: ThemeColor = $currentThemeColor;
 
+	$: name = $currentName;
+
 	let onClose = () => {};
 
 	const onSubmit = () => {
