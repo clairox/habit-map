@@ -23,8 +23,8 @@
 	<h2 class="title" slot="header">Settings</h2>
 	<form slot="content" class="form" tabindex="-1" on:submit|preventDefault={onSubmit}>
 		<div class="form-group name-group">
-			<label class="input-label" for="name-input">Title</label>
-			<input class="input" type="text" name="title-input" placeholder="Title" bind:value={name} />
+			<label class="input-label" for="name-input">Name</label>
+			<input class="input" type="text" name="name-input" placeholder="Name" bind:value={name} />
 		</div>
 		<div class="form-group theme-color-group">
 			<label class="input-label" for="color-input">Color</label>
