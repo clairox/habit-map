@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { createHabit, getHabits } from '$lib/Habit';
 	import Modal from '../Modal.svelte';
-	import { habits, themeColor } from '../stores';
+	import { createHabit, themeColor } from '../stores';
 	import ColorSelect from '../ColorSelect.svelte';
 	import type { ThemeColor } from '../../types/types';
 
@@ -35,7 +34,6 @@
 		const goalAsInt = Math.floor(parseInt(goal)) || 1;
 
 		createHabit(title, intervalAsInt, goalAsInt, color);
-		habits.set(getHabits());
 
 		dialog.close();
 	};

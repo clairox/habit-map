@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { deleteOneHabit, getHabits } from '$lib/Habit';
 	import Modal from '../Modal.svelte';
-	import { habits } from '../stores';
+	import { habits, deleteOneHabit } from '../stores';
 
 	export let id: string, title: string;
 	export let showModal = false;
@@ -12,7 +11,6 @@
 
 	const onSubmit = () => {
 		deleteOneHabit(id);
-		habits.set(getHabits());
 
 		dialog.close();
 	};

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getHabits, updateOneHabit } from '$lib/Habit';
 	import type { ThemeColor } from '../types/types';
 	import { colors } from '../util/colors';
 	import { daysUntil, getToday, nDaysBefore } from '../util/time';
@@ -7,7 +6,7 @@
 	import DropdownMenu from './DropdownMenu.svelte';
 	import DeleteHabitModal from './Modals/DeleteHabitModal.svelte';
 	import EditHabitModal from './Modals/EditHabitModal.svelte';
-	import { habits, themeColor } from './stores';
+	import { updateOneHabit, themeColor } from './stores';
 
 	export let id: string,
 		title: string = '',
@@ -61,7 +60,6 @@
 
 	const onStarredClicked = () => {
 		updateOneHabit(id, { starred: !starred });
-		habits.set(getHabits());
 	};
 
 	const onEditClicked = () => {
@@ -78,7 +76,6 @@
 			streak: checked ? streak + 1 : streak - 1,
 			tempLastStreakDate: checked ? getToday() : lastStreakDate
 		});
-		habits.set(getHabits());
 	};
 
 	let options = [

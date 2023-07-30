@@ -53,7 +53,6 @@
 		const goalAsInt = Math.floor(parseInt(goal)) || currentGoal;
 
 		editHabit(title, intervalAsInt, goalAsInt, color);
-		habits.set(getHabits());
 
 		const habit = $habits.find((h) => title === h.title);
 
