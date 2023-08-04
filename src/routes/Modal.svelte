@@ -3,6 +3,8 @@
 	export let dialog: HTMLDialogElement;
 	export let onClose: () => void;
 
+	export let canIgnore: boolean = true;
+
 	$: if (dialog && showModal) dialog.showModal();
 </script>
 
@@ -13,7 +15,7 @@
 		onClose();
 		showModal = false;
 	}}
-	on:mousedown|self={() => dialog.close()}
+	on:mousedown|self={() => canIgnore && dialog.close()}
 >
 	<div class="inner" on:mousedown|stopPropagation>
 		<div class="header">
