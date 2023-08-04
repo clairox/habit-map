@@ -4,7 +4,7 @@
 	import NewHabitModal from './Modals/NewHabitModal.svelte';
 	import { colors } from '../util/colors';
 	import { habits, name, themeColor } from './stores';
-	import CreateNameModal from './Modals/CreateNameModal.svelte';
+	import UserSetupModal from './Modals/UserSetupModal.svelte';
 
 	let showNewHabitModal = false;
 	let showCreateNameModal = false;
@@ -39,7 +39,7 @@
 	</button>
 </div>
 <NewHabitModal bind:showModal={showNewHabitModal} />
-<CreateNameModal bind:showModal={showCreateNameModal} />
+<UserSetupModal bind:showModal={showCreateNameModal} />
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&family=Lato&display=swap');
