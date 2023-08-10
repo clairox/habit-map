@@ -58,4 +58,10 @@
 		background: none;
 		cursor: pointer;
 	}
+
+	@media (min-width: 768px) {
+		.nav {
+			padding: 0.4rem 2rem;
+		}
+	}
 </style>

@@ -5,6 +5,7 @@
 	import { colors } from '../util/colors';
 	import { habits, name, themeColor } from './stores';
 	import UserSetupModal from './Modals/UserSetupModal.svelte';
+	import Sidebar from './Sidebar.svelte';
 
 	let showNewHabitModal = false;
 	let showCreateNameModal = false;
@@ -21,13 +22,18 @@
 			<h1>hello, {$name}!</h1>
 		</section>
 	{/if}
-	<section class="habits-section">
-		<div class="habits-content">
-			{#each $habits as habit (habit.id)}
-				<Habit {...habit} />
-			{/each}
-		</div>
-	</section>
+	<div class="content">
+		<section class="habits-section">
+			<div class="habits-content">
+				{#each $habits as habit (habit.id)}
+					<Habit {...habit} />
+				{/each}
+			</div>
+		</section>
+		<section class="sidebar-section">
+			<Sidebar />
+		</section>
+	</div>
 </main>
 <div class="toolbar">
 	<button
@@ -179,5 +185,57 @@
 	.dashboard {
 		margin: auto;
 		width: 95%;
+		max-width: 1000px;
+	}
+
+	.sidebar-section {
+		display: none;
+	}
+
+	.content {
+		max-width: 1355px;
+	}
+
+	@media (min-width: 400px) {
+		main {
+			margin-left: 1rem;
+			margin-right: 1rem;
+		}
+	}
+
+	@media (min-width: 768px) {
+		:global(.form) {
+			gap: 1rem;
+		}
+
+		:global(.form-row) {
+			gap: 1.5rem;
+		}
+
+		.content {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			gap: 1rem;
+			width: 100%;
+		}
+
+		.habits-section {
+			flex-grow: 10;
+			max-width: 50rem;
+		}
+
+		.sidebar-section {
+			display: block;
+			flex-grow: 14;
+			max-width: 22rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.content {
+			margin: auto;
+			width: 95%;
+		}
 	}
 </style>

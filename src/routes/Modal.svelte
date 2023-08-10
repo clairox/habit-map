@@ -29,16 +29,25 @@
 
 <style>
 	dialog {
+		top: -40vh;
 		padding: 0;
+		width: 75vw;
+		max-width: 20rem;
 		border: 5px solid var(--default-bg-secondary-color);
 		border-radius: 10px;
-		width: 75vw;
 		background: var(--default-bg-color);
 		color: var(--default-accent-color);
 		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.329));
 		overflow: visible;
 	}
 
+	dialog::backdrop {
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+	dialog > div {
+		padding: 1.5em;
+	}
 	.inner {
 		padding: 0;
 	}
@@ -50,14 +59,25 @@
 	}
 
 	.content {
-		padding: 1rem;
+		padding: 1.5rem 1rem;
 	}
 
-	dialog::backdrop {
-		background: rgba(0, 0, 0, 0.1);
+	@media (min-width: 600px) {
+		dialog {
+			max-width: 22rem;
+		}
+		.content {
+			padding: 2rem 1.5rem;
+		}
 	}
 
-	dialog > div {
-		padding: 1.5em;
+	@media (min-width: 768px) {
+		dialog {
+			max-width: 24rem;
+		}
+
+		.content {
+			padding: 3rem 1.75rem;
+		}
 	}
 </style>

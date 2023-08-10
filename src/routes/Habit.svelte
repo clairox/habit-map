@@ -184,4 +184,16 @@
 		height: 100%;
 		background-color: var(--default-accent-color);
 	}
+
+	@media (min-width: 400px) {
+		.bottom-section {
+			height: 6rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.bottom-section {
+			height: 9rem;
+		}
+	}
 </style>
